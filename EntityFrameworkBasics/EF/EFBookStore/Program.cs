@@ -10,22 +10,29 @@ namespace EF
 
             BookStoreContext bookStoreContext = new BookStoreContext();
 
-            List<BooksEntity> l = bookStoreContext.Books
-                .Include(b => b.Categories)
-                .ToList();
+            var l = bookStoreContext.Books
+                //.Include(b=>b.Categories)
+                .First();
 
-            var be = bookStoreContext.Books.Include(b => b.Categories).Select(b=>b.Categories);
+            bookStoreContext.Category.Add(new CategoryEntity() { Name = "asdf" });
 
-            List<CategoryEntity> c = bookStoreContext.Category.ToList();
 
-            List<CategoryEntity> bc = l.First().Categories.ToList();
 
-            bc.Add(c.First());
-
-            l.First().Categories = bc;
 
 
             bookStoreContext.SaveChanges();
+
+            
+        }
+
+
+    }
+
+    public static class EntityExtensions
+    {
+        public static void AddToListProperty<TEntity, TProperty>(this TEntity einity, Func<TEntity, IEnumerable<TProperty>> property, TProperty newValue)
+        {
+
         }
     }
 }
