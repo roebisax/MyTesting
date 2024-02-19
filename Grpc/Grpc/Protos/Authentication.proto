@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcData";
+
+package authentication;
+
+// The greeting service definition.
+service Authentication {
+  // Sends a greeting
+  rpc Authenticate (AuthenticationRequest) returns (AuthenticationReply);
+}
+
+
+// The request message containing the user's name.
+message AuthenticationRequest {
+  string username = 1;
+  string password = 2;
+}
+
+// The response message containing the greetings.
+message AuthenticationReply {
+  string accessToken = 1;
+  int32 ExpiresIn = 2;
+}
+
